@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Clean the house",
+    "done": false,
+    "id": 1,
+    "type": "cleanup"
+  },
+  {
+    "title": "Buy meal",
+    "done": false,
+    "id": 2,
+    "type": "shopping"
+  },
+  {
+    "title": "Go to the gym",
+    "done": false,
+    "id": 3,
+    "type": "sport"
+  },
+  {
+    "title": "Go to the cimena",
+    "done": false,
+    "id": 4,
+    "type": "entertainment"
+  },
+  {
+    "title": "Go to AMSA",
+    "done": false,
+    "id": 5,
+    "type": "child care"
+  }
+]
