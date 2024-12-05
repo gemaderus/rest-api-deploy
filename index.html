@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script type="module">
+      fetch("http://localhost:3000/todos")
+        .then((response) => response.json())
+        .then((todos) => {
+          const html = todos
+            .map((todo) => {
+              return `
+            <article data-id="${todo.id}">
+              <h2>${todo.title}</h2>
+              <p>${todo.type}</p>
+              <button>Eliminar</button>
+            </article>
+          `;
+            })
+            .join("");
+
+          document.querySelector("body").innerHTML = html;
+
+          document.addEventListener("click", (event) => {
+            const article = event.target.closest("article");
+            const id = article.dataset.id;
+
+            console.log("article", article.dataset);
+
+            if (event.target.tagName === "BUTTON") {
+              fetch(`http://localhost:3000/todos/${id}`, {
+                method: "DELETE",
+              })
+                .then((response) => response.json())
+                .then((response) => {
+                  if (res.ok) {
+                    article.remove();
+                  }
+                });
+            }
+          });
+        });
+    </script>
+  </head>
+  <body></body>
+</html>
