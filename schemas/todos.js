@@ -1,4 +1,4 @@
-const z = require("zod");
+import z from "zod";
 
 const todoSchema = z.object({
   title: z.string().min(3).max(100),
@@ -6,16 +6,10 @@ const todoSchema = z.object({
   done: z.boolean(),
 });
 
-const validateTodo = (todo) => {
+export const validateTodo = (todo) => {
   return todoSchema.safeParse(todo);
 };
 
-const validatePartialMovie = (todo) => {
+export const validatePartialMovie = (todo) => {
   return todoSchema.partial().safeParse(todo);
-};
-
-module.exports = {
-  todoSchema,
-  validateTodo,
-  validatePartialMovie,
 };
