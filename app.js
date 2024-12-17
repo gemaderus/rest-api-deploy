@@ -1,63 +1,66 @@
 import express, { json } from "express";
 
 import { corsMiddleware } from "./middlewares/cors.js";
+import { createTodosRouter } from "./routes/todos.js";
+import { Todo } from "./models/mysql/todo.js";
 
-const app = express();
-const PORT = process.env.port ?? 3000;
-import { todosRouter } from "./routes/todos.js";
+export const createApp = ({ movieModel }) => {
+  const app = express();
+  const PORT = process.env.port ?? 3000;
 
-//import fs from "node:fs";
-//const todos = JSON.parse(fs.readFileSync("./todos.json", "utf-8"));
+  //import fs from "node:fs";
+  //const todos = JSON.parse(fs.readFileSync("./todos.json", "utf-8"));
 
-app.disable("x-powered-by");
+  app.disable("x-powered-by");
 
-app.use(json());
+  app.use(json());
 
-// app.use((req, res, next) => {
-//   if (req.method !== "POST") {
-//     return next();
-//   }
+  // app.use((req, res, next) => {
+  //   if (req.method !== "POST") {
+  //     return next();
+  //   }
 
-//   if (req.headers["content-type"] !== "application/json") {
-//     return next();
-//   }
+  //   if (req.headers["content-type"] !== "application/json") {
+  //     return next();
+  //   }
 
-//   let body = "";
-//   req.on("data", (chunk) => {
-//     body += chunk.toString();
-//   });
+  //   let body = "";
+  //   req.on("data", (chunk) => {
+  //     body += chunk.toString();
+  //   });
 
-//   req.on("end", () => {
-//     const data = JSON.parse(body);
-//     console.log("data", data);
-//     data.timestamp = Date.now();
+  //   req.on("end", () => {
+  //     const data = JSON.parse(body);
+  //     console.log("data", data);
+  //     data.timestamp = Date.now();
 
-//     req.body = data;
+  //     req.body = data;
 
-//     next();
-//   });
-// });
+  //     next();
+  //   });
+  // });
 
-app.use("/todos", todosRouter);
+  app.use("/todos", createTodosRouter({ todoModel: Todo }));
 
-app.use(corsMiddleware());
+  app.use(corsMiddleware());
 
-// Cors preflight
-// app.options("/todos", (req, res) => {
-//   const origin = req.headers.origin;
+  // Cors preflight
+  // app.options("/todos", (req, res) => {
+  //   const origin = req.headers.origin;
 
-//   if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-//     res.header("Access-Control-Allow-Origin", origin);
-//     res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE");
-//   }
+  //   if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
+  //     res.header("Access-Control-Allow-Origin", origin);
+  //     res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE");
+  //   }
 
-//   res.send();
-// });
+  //   res.send();
+  // });
 
-app.use((req, res) => {
-  res.status(404).send("404 Not Found");
-});
+  app.use((req, res) => {
+    res.status(404).send("404 Not Found");
+  });
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
+  app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}`);
+  });
+};
