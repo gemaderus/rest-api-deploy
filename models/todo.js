@@ -19,13 +19,10 @@ export class Todo {
   }
 
   static async create(todo) {
-    console.log("todo", todo);
     const newTodo = {
       id: randomUUID(),
       ...todo,
     };
-
-    console.log(newTodo);
 
     todos.push(newTodo);
 
