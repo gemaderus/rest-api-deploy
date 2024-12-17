@@ -27,8 +27,6 @@
             const article = event.target.closest("article");
             const id = article.dataset.id;
 
-            console.log("article", article.dataset);
-
             if (event.target.tagName === "BUTTON") {
               fetch(`http://localhost:3000/todos/${id}`, {
                 method: "DELETE",
