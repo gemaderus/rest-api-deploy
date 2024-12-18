@@ -4,7 +4,7 @@ import { corsMiddleware } from "./middlewares/cors.js";
 import { createTodosRouter } from "./routes/todos.js";
 import { Todo } from "./models/mysql/todo.js";
 
-export const createApp = ({ movieModel }) => {
+export const createApp = ({ todoModel }) => {
   const app = express();
   const PORT = process.env.port ?? 3000;
 
@@ -40,7 +40,7 @@ export const createApp = ({ movieModel }) => {
   //   });
   // });
 
-  app.use("/todos", createTodosRouter({ todoModel: Todo }));
+  app.use("/todos", createTodosRouter({ todoModel }));
 
   app.use(corsMiddleware());
 
